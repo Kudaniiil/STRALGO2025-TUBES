@@ -2,12 +2,13 @@ package stralgo;
 
 import java.util.*;
 
-class Player {
+
+class StrictPlayer {
     String name;
     List<String> instruments;
     Set<Integer> availableWeeks;
 
-    public Player(String name, List<String> instruments, List<Integer> availableWeeks) {
+    public StrictPlayer(String name, List<String> instruments, List<Integer> availableWeeks) {
         this.name = name;
         this.instruments = instruments;
         this.availableWeeks = new HashSet<>(availableWeeks);
@@ -24,22 +25,20 @@ class Player {
 
 public class MusicSchedulerStrict {
 
-    
+   
     static String[] REQUIRED_INSTRUMENTS = {"Gitar", "Bass", "Keyboard", "Drum"};
     
-    static List<Player> players = new ArrayList<>();
+    static List<StrictPlayer> players = new ArrayList<>();
     static int TOTAL_WEEKS = 4;
 
-    
     static Map<Integer, Map<String, String>> schedule = new HashMap<>();
-    
     
     static Map<Integer, Set<String>> assignedPlayersPerWeek = new HashMap<>();
 
     public static void main(String[] args) {
-        loadTestCase(1); 
+    loadTestCase(1); 
 
-        System.out.println("=== Penjadwalan Strict (1 Alat 1 Orang) ===");
+        System.out.println("=== Penjadwalan Strict (1 Orang = 1 Alat) ===");
         
         if (solveSchedule(1, 0)) {
             printSchedule();
@@ -48,9 +47,7 @@ public class MusicSchedulerStrict {
         }
     }
 
-    
     static boolean solveSchedule(int week, int instrIdx) {
-        
         if (week > TOTAL_WEEKS) {
             return true;
         }
@@ -61,15 +58,12 @@ public class MusicSchedulerStrict {
 
         String currentInstrument = REQUIRED_INSTRUMENTS[instrIdx];
 
-        
-        for (Player p : players) {
+        for (StrictPlayer p : players) {
             if (isValid(p, week, currentInstrument)) {
-                
                 
                 schedule.putIfAbsent(week, new HashMap<>());
                 schedule.get(week).put(currentInstrument, p.name);
                 
-               
                 assignedPlayersPerWeek.putIfAbsent(week, new HashSet<>());
                 assignedPlayersPerWeek.get(week).add(p.name);
 
@@ -85,7 +79,7 @@ public class MusicSchedulerStrict {
         return false;
     }
 
-    static boolean isValid(Player p, int week, String instrument) {
+    static boolean isValid(StrictPlayer p, int week, String instrument) {
         if (!p.canPlay(instrument)) return false;
 
         if (!p.isAvailable(week)) return false;
@@ -102,27 +96,31 @@ public class MusicSchedulerStrict {
         players.clear();
         if (caseNum == 1) {
             System.out.println("Loading Data Test Case 1...");
-            // Format: Nama, [Skill], [Minggu Bisa Main]
-            players.add(new Player("A", Arrays.asList("Gitar", "Bass"), Arrays.asList(1, 2, 3, 4))); 
-            players.add(new Player("B", Arrays.asList("Gitar", "Bass"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("C", Arrays.asList("Keyboard"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("D", Arrays.asList("Keyboard"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("E", Arrays.asList("Drum"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("F", Arrays.asList("Drum"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("G", Arrays.asList("Gitar"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("H", Arrays.asList("Bass"), Arrays.asList(1, 2, 3, 4)));
-            players.add(new Player("I", Arrays.asList("Bass"), Arrays.asList(1, 2, 3, 4)));
+            // A bisa Gitar & Bass
+            players.add(new StrictPlayer("A", Arrays.asList("Gitar", "Bass"), Arrays.asList(1, 2, 3, 4))); 
+            // B bisa Gitar & Bass
+            players.add(new StrictPlayer("B", Arrays.asList("Gitar", "Bass"), Arrays.asList(1, 2, 3, 4)));
+            // C bisa Keyboard
+            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList(1, 2, 3, 4)));
+            // D bisa Keyboard
+            players.add(new StrictPlayer("D", Arrays.asList("Keyboard"), Arrays.asList(1, 2, 3, 4)));
+            // E bisa Drum
+            players.add(new StrictPlayer("E", Arrays.asList("Drum"), Arrays.asList(1, 2, 3, 4)));
+            // F bisa Drum
+            players.add(new StrictPlayer("F", Arrays.asList("Drum"), Arrays.asList(1, 2, 3, 4)));
+            // H bisa Gitar
+            players.add(new StrictPlayer("H", Arrays.asList("Gitar"), Arrays.asList(1, 2, 3, 4)));
+            // I bisa Gitar
+            players.add(new StrictPlayer("I", Arrays.asList("Gitar"), Arrays.asList(1, 2, 3, 4)));
+            
         } else if (caseNum == 2) {
             System.out.println("Loading Data Test Case 2...");
-            players.add(new Player("A", Arrays.asList("Gitar"), Arrays.asList(1)));
-            players.add(new Player("B", Arrays.asList("Bass"), Arrays.asList(1)));
-            players.add(new Player("C", Arrays.asList("Keyboard"), Arrays.asList(1)));
-            players.add(new Player("D", Arrays.asList("Drum"), Arrays.asList(1)));
-            players.add(new Player("E", Arrays.asList("Gitar"), Arrays.asList(1)));
-            players.add(new Player("F", Arrays.asList("Bass"), Arrays.asList(2)));
-            players.add(new Player("G", Arrays.asList("Keyboard"), Arrays.asList(2)));
-            players.add(new Player("H", Arrays.asList("Drum"), Arrays.asList(2)));
             
+            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList(1)));
+            players.add(new StrictPlayer("D", Arrays.asList("Drum"), Arrays.asList(1)));
+            players.add(new StrictPlayer("F", Arrays.asList("Gitar"), Arrays.asList(2)));
+            players.add(new StrictPlayer("G", Arrays.asList("Keyboard"), Arrays.asList(2)));
+            players.add(new StrictPlayer("H", Arrays.asList("Drum"), Arrays.asList(2)));
         }
     }
 
@@ -131,7 +129,7 @@ public class MusicSchedulerStrict {
         for (int w = 1; w <= TOTAL_WEEKS; w++) {
             System.out.println("Minggu " + w + ":");
             Map<String, String> weekSch = schedule.get(w);
-            if (weekSch == null) {
+            if (weekSch == null || weekSch.isEmpty()) {
                 System.out.println("  Libur (Tidak ada jadwal)");
                 continue;
             }
