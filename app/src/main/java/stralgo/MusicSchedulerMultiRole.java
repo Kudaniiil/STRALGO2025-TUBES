@@ -118,15 +118,12 @@ public class MusicSchedulerMultiRole {
     }
 
     static void initializeData() {
-        
         players.add(new Player("Budi", Arrays.asList("Gitar", "Vokal"), new HashSet<>(Arrays.asList(2))));
-        players.add(new Player("Andi", Arrays.asList("Drum", "Bass"), new HashSet<>(Arrays.asList(2)))); // Andi juga sibuk minggu 2
+        players.add(new Player("Andi", Arrays.asList("Drum", "Bass"), new HashSet<>(Arrays.asList(2))));
         players.add(new Player("Citra", Arrays.asList("Vokal", "Keyboard"), new HashSet<>(Arrays.asList(1))));
         players.add(new Player("Dedi", Arrays.asList("Gitar"), new HashSet<>(Arrays.asList(3))));
         players.add(new Player("Eko", Arrays.asList("Bass", "Drum"), new HashSet<>()));
         players.add(new Player("Fani", Arrays.asList("Keyboard"), new HashSet<>()));
-        
-        
         players.add(new Player("Gina", Arrays.asList("Gitar", "Bass", "Drum", "Vokal", "Keyboard"), new HashSet<>()));
     }
 
@@ -136,7 +133,6 @@ public class MusicSchedulerMultiRole {
             System.out.println("Minggu ke-" + w + ":");
             Map<String, String> weekSch = schedule.get(w);
             
-            
             Map<String, Integer> jobCount = new HashMap<>();
             
             for (String instr : REQUIRED_INSTRUMENTS) {
@@ -145,7 +141,6 @@ public class MusicSchedulerMultiRole {
                 jobCount.put(name, jobCount.getOrDefault(name, 0) + 1);
             }
             
-          
             System.out.print("  [Info] Pemain Rangkap: ");
             boolean ada = false;
             for(Map.Entry<String, Integer> e : jobCount.entrySet()){
