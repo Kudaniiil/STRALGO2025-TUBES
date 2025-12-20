@@ -2,7 +2,6 @@ package stralgo;
 
 import java.util.*;
 
-
 class StrictPlayer {
     String name;
     List<String> instruments;
@@ -25,7 +24,6 @@ class StrictPlayer {
 
 public class MusicSchedulerStrict {
 
-   
     static String[] REQUIRED_INSTRUMENTS = {"Gitar", "Bass", "Keyboard", "Drum"};
     
     static List<StrictPlayer> players = new ArrayList<>();
@@ -36,7 +34,7 @@ public class MusicSchedulerStrict {
     static Map<Integer, Set<String>> assignedPlayersPerWeek = new HashMap<>();
 
     public static void main(String[] args) {
-    loadTestCase(1); 
+        loadTestCase(1); 
 
         System.out.println("=== Penjadwalan Strict (1 Orang = 1 Alat) ===");
         
@@ -94,33 +92,48 @@ public class MusicSchedulerStrict {
 
     static void loadTestCase(int caseNum) {
         players.clear();
+        
         if (caseNum == 1) {
             System.out.println("Loading Data Test Case 1...");
-            // A bisa Gitar & Bass
-            players.add(new StrictPlayer("A", Arrays.asList("Gitar", "Bass"), Arrays.asList(1, 2, 3, 4))); 
-            // B bisa Gitar & Bass
-            players.add(new StrictPlayer("B", Arrays.asList("Gitar", "Bass"), Arrays.asList(1, 2, 3, 4)));
-            // C bisa Keyboard
-            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList(1, 2, 3, 4)));
-            // D bisa Keyboard
+            TOTAL_WEEKS = 4;
+            
+            players.add(new StrictPlayer("A", Arrays.asList("Gitar", "Bass"), Arrays.asList(3, 4))); 
+            players.add(new StrictPlayer("B", Arrays.asList("Gitar", "Bass"), Arrays.asList(3, 4)));
+            
+            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList())); 
+            
             players.add(new StrictPlayer("D", Arrays.asList("Keyboard"), Arrays.asList(1, 2, 3, 4)));
-            // E bisa Drum
             players.add(new StrictPlayer("E", Arrays.asList("Drum"), Arrays.asList(1, 2, 3, 4)));
-            // F bisa Drum
             players.add(new StrictPlayer("F", Arrays.asList("Drum"), Arrays.asList(1, 2, 3, 4)));
-            // H bisa Gitar
-            players.add(new StrictPlayer("H", Arrays.asList("Gitar"), Arrays.asList(1, 2, 3, 4)));
-            // I bisa Gitar
+            players.add(new StrictPlayer("G", Arrays.asList("Gitar"), Arrays.asList(1, 2, 3, 4)));
+            players.add(new StrictPlayer("H", Arrays.asList("Bass"), Arrays.asList(1, 2, 3, 4)));
             players.add(new StrictPlayer("I", Arrays.asList("Gitar"), Arrays.asList(1, 2, 3, 4)));
             
         } else if (caseNum == 2) {
             System.out.println("Loading Data Test Case 2...");
+            TOTAL_WEEKS = 2;
             
-            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList(1)));
-            players.add(new StrictPlayer("D", Arrays.asList("Drum"), Arrays.asList(1)));
-            players.add(new StrictPlayer("F", Arrays.asList("Gitar"), Arrays.asList(2)));
-            players.add(new StrictPlayer("G", Arrays.asList("Keyboard"), Arrays.asList(2)));
-            players.add(new StrictPlayer("H", Arrays.asList("Drum"), Arrays.asList(2)));
+            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList(2)));
+            players.add(new StrictPlayer("D", Arrays.asList("Drum"), Arrays.asList(2)));
+            players.add(new StrictPlayer("F", Arrays.asList("Gitar"), Arrays.asList(1)));
+            players.add(new StrictPlayer("G", Arrays.asList("Keyboard"), Arrays.asList(1)));
+            players.add(new StrictPlayer("H", Arrays.asList("Drum"), Arrays.asList(1)));
+            players.add(new StrictPlayer("Elias", Arrays.asList("Bass"), Arrays.asList(1, 2)));
+
+        } else if (caseNum == 3) {
+            System.out.println("Loading Data Test Case 3...");
+            TOTAL_WEEKS = 2;
+            
+            players.add(new StrictPlayer("A", Arrays.asList("Gitar", "Bass"), Arrays.asList(2))); 
+            players.add(new StrictPlayer("B", Arrays.asList("Gitar", "Bass"), Arrays.asList(2)));
+            
+            players.add(new StrictPlayer("C", Arrays.asList("Keyboard"), Arrays.asList(2))); 
+            players.add(new StrictPlayer("D", Arrays.asList("Keyboard"), Arrays.asList(1, 2)));
+            players.add(new StrictPlayer("E", Arrays.asList("Drum"), Arrays.asList(1)));
+            players.add(new StrictPlayer("F", Arrays.asList("Drum"), Arrays.asList(1)));
+            players.add(new StrictPlayer("G", Arrays.asList("Gitar"), Arrays.asList(1)));
+            players.add(new StrictPlayer("H", Arrays.asList("Bass"), Arrays.asList(1)));
+            players.add(new StrictPlayer("I", Arrays.asList("Gitar"), Arrays.asList(1)));
         }
     }
 
@@ -140,4 +153,6 @@ public class MusicSchedulerStrict {
             System.out.println();
         }
     }
+
+    
 }
